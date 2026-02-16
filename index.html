@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pelumi Odimayo — Software Developer & Consultant</title>
-    <meta name="description" content="Oluwapelumi Odimayo LLC — Product development, technical consulting, and studio projects.">
+    <title>Pelumi Odimayo — Dog Dad & Product Builder</title>
+    <meta name="description" content="Oluwapelumi Odimayo LLC — Building products that matter.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -61,23 +61,25 @@
             font-size: 48px;
             font-weight: 700;
             letter-spacing: -1px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .hero-tagline {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
         }
 
         .hero-company {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 400;
             color: var(--text-secondary);
             text-transform: lowercase;
             letter-spacing: 2px;
-            margin-bottom: 32px;
-        }
-
-        .hero-tagline {
-            font-size: 18px;
-            color: var(--text-secondary);
-            max-width: 500px;
+            opacity: 0.6;
             margin-bottom: 48px;
         }
 
@@ -112,35 +114,6 @@
         .section-title::before {
             content: '## ';
             color: var(--accent);
-        }
-
-        /* ============================================
-           SERVICES
-           ============================================ */
-        .service {
-            margin-bottom: 32px;
-        }
-
-        .service:last-child {
-            margin-bottom: 0;
-        }
-
-        .service-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .service-title::before {
-            content: '> ';
-            color: var(--accent);
-        }
-
-        .service-description {
-            color: var(--text-secondary);
-            padding-left: 18px;
         }
 
         /* ============================================
@@ -287,12 +260,12 @@
                 font-size: 32px;
             }
 
-            .hero-company {
-                font-size: 12px;
-            }
-
             .hero-tagline {
                 font-size: 16px;
+            }
+
+            .hero-company {
+                font-size: 11px;
             }
 
             section {
@@ -322,40 +295,12 @@
     <!-- HERO -->
     <header class="hero">
         <h1 class="hero-name" id="name-text">Pelumi Odimayo</h1>
+        <p class="hero-tagline" id="tagline-text">Dog Dad & Product Builder</p>
         <p class="hero-company">oluwapelumi odimayo llc</p>
-        <p class="hero-tagline">
-            Building software that matters. Product development, consulting, and the occasional side project that gets out of hand.
-        </p>
         <span class="scroll-indicator">↓</span>
     </header>
 
     <main class="container">
-        <!-- SERVICES -->
-        <section id="services">
-            <h2 class="section-title">What I Do</h2>
-            
-            <div class="service">
-                <h3 class="service-title">Product Development</h3>
-                <p class="service-description">
-                    Full-stack builds from zero to launch. Web, mobile, whatever ships. I've taken ideas from napkin sketch to production for startups, enterprises, and my own ventures.
-                </p>
-            </div>
-            
-            <div class="service">
-                <h3 class="service-title">Technical Consulting</h3>
-                <p class="service-description">
-                    Architecture reviews, scaling advice, and AI integration strategy for teams who need a second brain. Princeton CS background, startup battle scars included.
-                </p>
-            </div>
-            
-            <div class="service">
-                <h3 class="service-title">Studio Projects</h3>
-                <p class="service-description">
-                    My own products, built to scratch itches. Some make money. All teach lessons. Every project below started as "what if..."
-                </p>
-            </div>
-        </section>
-
         <!-- PROJECTS -->
         <section id="projects">
             <h2 class="section-title">Projects</h2>
@@ -370,7 +315,7 @@
                         <span class="project-link">→ visit</span>
                     </div>
                     <p class="project-description">
-                        Liar's dice, online. Multiplayer bluffing game built for game nights that went remote. Real-time gameplay, no downloads, just lies.
+                        Liar's dice, online. Multiplayer bluffing for remote game nights.
                     </p>
                 </a>
 
@@ -383,7 +328,7 @@
                         <span class="project-link">→ visit</span>
                     </div>
                     <p class="project-description">
-                        Crypto meets mini-golf betting. Exactly as degenerate as it sounds. Competitive putting with stakes.
+                        Crypto meets mini-golf betting. Exactly as degen as it sounds.
                     </p>
                 </a>
 
@@ -396,9 +341,8 @@
                         <span class="project-link">→ visit</span>
                     </div>
                     <p class="project-description">
-                        AI-powered interior design. Upload a photo of your room, get back a redesign. See your space transformed before you buy anything.
+                        AI-powered interior design. Show it your room, get back a redesign.
                     </p>
-                    <p class="project-status">// in development</p>
                 </a>
 
                 <a href="https://www.loomsupply.co/" target="_blank" class="project-card">
@@ -410,7 +354,20 @@
                         <span class="project-link">→ visit</span>
                     </div>
                     <p class="project-description">
-                        Sustainable fashion supply chain. Connecting ethical manufacturers with brands who care about where their products come from.
+                        International raw materials sourcing focused on West Africa.
+                    </p>
+                </a>
+
+                <a href="https://votive.app" target="_blank" class="project-card">
+                    <div class="project-header">
+                        <span class="project-name">
+                            <span class="project-emoji">🕯️</span>
+                            VOTIVE
+                        </span>
+                        <span class="project-link">→ visit</span>
+                    </div>
+                    <p class="project-description">
+                        Daily prayer app for Catholics finding their way back.
                     </p>
                 </a>
             </div>
@@ -445,8 +402,10 @@
         // ============================================
         // TEXT SCRAMBLE ANIMATION
         // ============================================
-        const nameElement = document.getElementById('name-text');
-        const finalText = 'Pelumi Odimayo';
+        const elements = [
+            { id: 'name-text', final: 'Pelumi Odimayo' },
+            { id: 'tagline-text', final: 'Dog Dad & Product Builder' }
+        ];
 
         function randomChar() {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
@@ -467,9 +426,12 @@
             }, 80);
         }
 
-        // Initialize with random chars, then animate
-        nameElement.innerText = Array(finalText.length).fill().map(randomChar).join('');
-        setTimeout(() => animateText(nameElement, finalText), 800);
+        // Initialize and animate each element with staggered timing
+        elements.forEach((item, i) => {
+            const element = document.getElementById(item.id);
+            element.innerText = Array(item.final.length).fill().map(randomChar).join('');
+            setTimeout(() => animateText(element, item.final), 800 + (i * 400));
+        });
 
         // ============================================
         // EMAIL OBFUSCATION
