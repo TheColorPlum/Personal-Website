@@ -467,26 +467,18 @@
             }, 100);
         }
 
-        // Initialize with random chars
-        elements.forEach((item) => {
+        // Start scrambling immediately on page load
+        elements.forEach((item, i) => {
             const element = document.getElementById(item.id);
-            element.innerText = Array(item.final.length).fill().map(randomChar).join('');
+            
+            // Stagger each element slightly
+            setTimeout(() => {
+                // Scramble loop for 900ms, then resolve
+                scrambleLoop(element, item.final.length, 900, () => {
+                    animateText(element, item.final);
+                });
+            }, i * 300);
         });
-
-        // After initial delay, scramble loop then resolve
-        setTimeout(() => {
-            elements.forEach((item, i) => {
-                const element = document.getElementById(item.id);
-                
-                // Stagger each element
-                setTimeout(() => {
-                    // Scramble loop for 500ms, then resolve
-                    scrambleLoop(element, item.final.length, 500, () => {
-                        animateText(element, item.final);
-                    });
-                }, i * 400);
-            });
-        }, 1000);
     </script>
 </body>
 </html>
