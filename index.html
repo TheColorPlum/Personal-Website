@@ -464,7 +464,7 @@
 
             setTimeout(() => {
                 animateText(element, finalText, index + 1);
-            }, 100);
+            }, 150);
         }
 
         // Start scrambling immediately on page load
@@ -473,11 +473,11 @@
             
             // Stagger each element slightly
             setTimeout(() => {
-                // Scramble loop for 900ms, then resolve
-                scrambleLoop(element, item.final.length, 900, () => {
+                // Scramble loop for 1350ms, then resolve
+                scrambleLoop(element, item.final.length, 1350, () => {
                     animateText(element, item.final);
                 });
-            }, i * 300);
+            }, i * 450);
         });
     </script>
 </body>
