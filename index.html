@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pelumi Odimayo — Dog Dad & Product Builder</title>
-    <meta name="description" content="Oluwapelumi Odimayo LLC — Building products that matter.">
+    <title>Pelumi Odimayo</title>
+    <meta name="description" content="Oluwapelumi Odimayo LLC — Builder, shipper, dog dad.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,13 +16,12 @@
         }
 
         :root {
-            --bg: #0a0a0a;
-            --surface: #111111;
-            --text-primary: #e0e0e0;
+            --bg: #000000;
+            --surface: #0a0a0a;
+            --text-primary: #FFFFFF;
             --text-secondary: #888888;
-            --accent: #4ade80;
-            --accent-hover: #22c55e;
-            --border: #222222;
+            --accent: #8E4585;
+            --accent-hover: #A855A8;
         }
 
         html {
@@ -30,15 +29,16 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.5;
             font-size: 16px;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px;
         }
@@ -54,171 +54,249 @@
             align-items: center;
             text-align: center;
             padding: 80px 24px;
+            position: relative;
         }
 
         .hero-name {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 48px;
+            font-size: clamp(48px, 12vw, 120px);
             font-weight: 700;
-            letter-spacing: -1px;
-            margin-bottom: 12px;
-        }
-
-        .hero-tagline {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 20px;
-            font-weight: 400;
-            color: var(--text-secondary);
-            margin-bottom: 16px;
+            letter-spacing: -0.04em;
+            line-height: 0.9;
+            margin-bottom: 32px;
         }
 
         .hero-company {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 400;
             color: var(--text-secondary);
-            text-transform: lowercase;
-            letter-spacing: 2px;
-            opacity: 0.6;
-            margin-bottom: 48px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 48px;
         }
 
-        .scroll-indicator {
+        /* Marquee */
+        .marquee-wrapper {
+            width: 100vw;
+            overflow: hidden;
+            position: relative;
+            padding: 16px 0;
+        }
+
+        .marquee {
+            display: flex;
+            animation: marquee 20s linear infinite;
+        }
+
+        .marquee-content {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            padding-right: 48px;
+        }
+
+        .marquee-content span {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--accent);
+            padding: 0 24px;
+        }
+
+        .marquee-content span::after {
+            content: '·';
+            padding-left: 48px;
             color: var(--text-secondary);
-            font-size: 14px;
-            animation: bounce 2s infinite;
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(8px); }
-            60% { transform: translateY(4px); }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         /* ============================================
            SECTIONS
            ============================================ */
         section {
-            padding: 80px 0;
-            border-top: 1px solid var(--border);
+            padding: 120px 0;
+        }
+
+        .section-header {
+            margin-bottom: 64px;
         }
 
         .section-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 48px;
-            color: var(--text-primary);
+            font-size: clamp(36px, 8vw, 64px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
         }
 
-        .section-title::before {
-            content: '## ';
-            color: var(--accent);
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
         }
 
         /* ============================================
-           PROJECTS
+           APPS GRID
            ============================================ */
-        .projects-grid {
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .apps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .app-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 48px 32px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 320px;
+            border: 1px solid transparent;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 0 40px rgba(142, 69, 133, 0.3);
+        }
+
+        .app-card-name {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 24px;
+        }
+
+        .app-card-name span {
+            display: block;
+        }
+
+        .app-card-emoji {
+            font-size: 48px;
+            margin-top: auto;
+        }
+
+        /* ============================================
+           VENTURES
+           ============================================ */
+        .ventures-list {
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
 
-        .project-card {
+        .venture-card {
             background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 24px;
+            border-radius: 16px;
+            padding: 32px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             text-decoration: none;
             color: inherit;
-            transition: border-color 150ms ease, background-color 150ms ease;
-            display: block;
+            transition: background-color 0.3s ease;
+            gap: 24px;
         }
 
-        .project-card:hover {
-            border-color: var(--accent);
-            background: #151515;
+        .venture-card:hover {
+            background: #111111;
         }
 
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
+        .venture-card:hover .venture-arrow {
+            transform: translateX(8px);
         }
 
-        .project-name {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 16px;
+        .venture-info {
+            flex: 1;
+        }
+
+        .venture-name {
+            font-size: 28px;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
         }
 
-        .project-emoji {
-            font-size: 20px;
+        .venture-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 600px;
         }
 
-        .project-link {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
+        .venture-arrow {
+            font-size: 24px;
             color: var(--accent);
+            transition: transform 0.3s ease;
         }
 
-        .project-description {
-            color: var(--text-secondary);
-            font-size: 15px;
-        }
+        @media (max-width: 600px) {
+            .venture-card {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
 
-        .project-status {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-top: 12px;
-            opacity: 0.7;
+            .venture-arrow {
+                align-self: flex-end;
+            }
         }
 
         /* ============================================
            CONTACT
            ============================================ */
+        .contact {
+            text-align: center;
+            padding: 120px 24px;
+        }
+
         .contact-email {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 20px;
+            font-size: clamp(24px, 5vw, 40px);
+            font-weight: 600;
             margin-bottom: 32px;
         }
 
         .contact-email a {
-            color: var(--accent);
+            color: var(--text-primary);
             text-decoration: none;
-            transition: color 150ms ease;
+            transition: color 0.2s ease;
         }
 
         .contact-email a:hover {
-            color: var(--accent-hover);
-            text-decoration: underline;
-        }
-
-        .contact-divider {
-            width: 100%;
-            height: 1px;
-            background: var(--border);
-            margin-bottom: 32px;
+            color: var(--accent);
         }
 
         .social-links {
             display: flex;
-            gap: 24px;
+            justify-content: center;
+            gap: 32px;
             flex-wrap: wrap;
         }
 
         .social-links a {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
+            font-size: 16px;
+            font-weight: 500;
             color: var(--accent);
             text-decoration: none;
-            transition: color 150ms ease;
+            transition: color 0.2s ease;
         }
 
         .social-links a:hover {
@@ -230,218 +308,124 @@
            FOOTER
            ============================================ */
         footer {
-            padding: 48px 0;
-            border-top: 1px solid var(--border);
+            padding: 48px 24px;
             text-align: center;
+            border-top: 1px solid #111;
         }
 
-        .footer-company {
+        .footer-text {
             font-size: 14px;
             color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
-
-        .footer-personality {
-            font-size: 14px;
-            color: var(--text-secondary);
-            opacity: 0.6;
-        }
-
-        /* ============================================
-           MOBILE
-           ============================================ */
-        @media (max-width: 600px) {
-            .hero {
-                padding: 48px 24px;
-                min-height: 90vh;
-            }
-
-            .hero-name {
-                font-size: 32px;
-            }
-
-            .hero-tagline {
-                font-size: 16px;
-            }
-
-            .hero-company {
-                font-size: 11px;
-            }
-
-            section {
-                padding: 48px 0;
-            }
-
-            .section-title {
-                font-size: 20px;
-                margin-bottom: 32px;
-            }
-
-            .project-card {
-                padding: 20px;
-            }
-
-            .contact-email {
-                font-size: 16px;
-            }
-
-            .social-links {
-                gap: 16px;
-            }
         }
     </style>
 </head>
 <body>
     <!-- HERO -->
     <header class="hero">
-        <h1 class="hero-name" id="name-text">Pelumi Odimayo</h1>
-        <p class="hero-tagline" id="tagline-text">Dog Dad & Product Builder</p>
-        <p class="hero-company">oluwapelumi odimayo llc</p>
-        <span class="scroll-indicator">↓</span>
+        <h1 class="hero-name">PELUMI<br>ODIMAYO</h1>
+        
+        <div class="marquee-wrapper">
+            <div class="marquee">
+                <div class="marquee-content">
+                    <span>builder</span>
+                    <span>shipper</span>
+                    <span>dog dad</span>
+                    <span>builder</span>
+                    <span>shipper</span>
+                    <span>dog dad</span>
+                </div>
+                <div class="marquee-content">
+                    <span>builder</span>
+                    <span>shipper</span>
+                    <span>dog dad</span>
+                    <span>builder</span>
+                    <span>shipper</span>
+                    <span>dog dad</span>
+                </div>
+            </div>
+        </div>
+
+        <p class="hero-company">Oluwapelumi Odimayo LLC</p>
     </header>
 
-    <main class="container">
-        <!-- PROJECTS -->
-        <section id="projects">
-            <h2 class="section-title">Projects</h2>
-            
-            <div class="projects-grid">
-                <a href="https://lie-die.com" target="_blank" class="project-card">
-                    <div class="project-header">
-                        <span class="project-name">
-                            <span class="project-emoji">🎲</span>
-                            LIE DIE
-                        </span>
-                        <span class="project-link">→ visit</span>
+    <!-- APPS -->
+    <section id="apps">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">APPS</h2>
+                <p class="section-subtitle">Products I've shipped</p>
+            </div>
+
+            <div class="apps-grid">
+                <a href="https://lie-die.com" target="_blank" class="app-card">
+                    <div class="app-card-name">
+                        <span>LIE</span>
+                        <span>DIE</span>
                     </div>
-                    <p class="project-description">
-                        Liar's dice, online. Multiplayer bluffing for remote game nights.
-                    </p>
+                    <div class="app-card-emoji">🎲</div>
                 </a>
 
-                <a href="https://degen-golf.xyz/" target="_blank" class="project-card">
-                    <div class="project-header">
-                        <span class="project-name">
-                            <span class="project-emoji">🏌️</span>
-                            DEGEN GOLF
-                        </span>
-                        <span class="project-link">→ visit</span>
+                <a href="https://degen-golf.xyz" target="_blank" class="app-card">
+                    <div class="app-card-name">
+                        <span>DEGEN</span>
+                        <span>GOLF</span>
                     </div>
-                    <p class="project-description">
-                        Platform to coordinate betting on golf tournaments among friends.
-                    </p>
+                    <div class="app-card-emoji">🏌️</div>
                 </a>
 
-                <a href="https://www.abode-ai.com/" target="_blank" class="project-card">
-                    <div class="project-header">
-                        <span class="project-name">
-                            <span class="project-emoji">🏠</span>
-                            ABODE
-                        </span>
-                        <span class="project-link">→ visit</span>
+                <a href="https://votive.me" target="_blank" class="app-card">
+                    <div class="app-card-name">
+                        <span>VOTIVE</span>
                     </div>
-                    <p class="project-description">
-                        AI-powered HOA and home management. Routine maintenance with group discount rates from your neighbors.
-                    </p>
-                </a>
-
-                <a href="https://www.loomsupply.co/" target="_blank" class="project-card">
-                    <div class="project-header">
-                        <span class="project-name">
-                            <span class="project-emoji">🌎</span>
-                            LOOM SUPPLY
-                        </span>
-                        <span class="project-link">→ visit</span>
-                    </div>
-                    <p class="project-description">
-                        International raw materials sourcing focused on West Africa.
-                    </p>
-                </a>
-
-                <a href="https://votive.me" target="_blank" class="project-card">
-                    <div class="project-header">
-                        <span class="project-name">
-                            <span class="project-emoji">🕯️</span>
-                            VOTIVE
-                        </span>
-                        <span class="project-link">→ visit</span>
-                    </div>
-                    <p class="project-description">
-                        Daily prayer app for Catholics finding their way back.
-                    </p>
+                    <div class="app-card-emoji">🕯️</div>
                 </a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- CONTACT -->
-        <section id="contact">
-            <h2 class="section-title">Get in Touch</h2>
-            
-            <p class="contact-email">
-                <a href="#" onclick="contactMe(event)">pelumi@pelumi.xyz</a>
-            </p>
-            
-            <div class="contact-divider"></div>
-            
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/oluwapelumi-odimayo/" target="_blank">linkedin</a>
-                <a href="https://github.com/TheColorPlum" target="_blank">github</a>
+    <!-- VENTURES -->
+    <section id="ventures">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">VENTURES</h2>
+                <p class="section-subtitle">Businesses I'm building</p>
             </div>
-        </section>
-    </main>
+
+            <div class="ventures-list">
+                <a href="https://loomsupply.co" target="_blank" class="venture-card">
+                    <div class="venture-info">
+                        <h3 class="venture-name">Loom Supply</h3>
+                        <p class="venture-description">International raw materials sourcing focused on West Africa.</p>
+                    </div>
+                    <span class="venture-arrow">→</span>
+                </a>
+
+                <a href="https://abode-ai.com" target="_blank" class="venture-card">
+                    <div class="venture-info">
+                        <h3 class="venture-name">Abode</h3>
+                        <p class="venture-description">AI-powered HOA and home management. Routine maintenance with group discount rates from your neighbors.</p>
+                    </div>
+                    <span class="venture-arrow">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact">
+        <p class="contact-email">
+            <a href="mailto:pelumi@pelumi.xyz">pelumi@pelumi.xyz</a>
+        </p>
+        <div class="social-links">
+            <a href="https://linkedin.com/in/oluwapelumi-odimayo/" target="_blank">linkedin</a>
+            <a href="https://twitter.com/thecolorplum" target="_blank">twitter</a>
+            <a href="https://github.com/TheColorPlum" target="_blank">github</a>
+        </div>
+    </section>
 
     <!-- FOOTER -->
     <footer>
-        <div class="container">
-            <p class="footer-company">© 2026 Oluwapelumi Odimayo LLC</p>
-            <p class="footer-personality">Built with too much coffee.</p>
-        </div>
+        <p class="footer-text">© 2026 Oluwapelumi Odimayo LLC</p>
     </footer>
-
-    <script>
-        // ============================================
-        // TEXT SCRAMBLE ANIMATION
-        // ============================================
-        const elements = [
-            { id: 'name-text', final: 'Pelumi Odimayo' },
-            { id: 'tagline-text', final: 'Dog Dad & Product Builder' }
-        ];
-
-        function randomChar() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
-            return chars[Math.floor(Math.random() * chars.length)];
-        }
-
-        function animateText(element, finalText, index = 0) {
-            if (index >= finalText.length) return;
-
-            let newText = finalText.substring(0, index + 1);
-            for (let i = index + 1; i < finalText.length; i++) {
-                newText += randomChar();
-            }
-            element.innerText = newText;
-
-            setTimeout(() => {
-                animateText(element, finalText, index + 1);
-            }, 80);
-        }
-
-        // Initialize and animate each element with staggered timing
-        elements.forEach((item, i) => {
-            const element = document.getElementById(item.id);
-            element.innerText = Array(item.final.length).fill().map(randomChar).join('');
-            setTimeout(() => animateText(element, item.final), 800 + (i * 400));
-        });
-
-        // ============================================
-        // EMAIL OBFUSCATION
-        // ============================================
-        function contactMe(event) {
-            event.preventDefault();
-            const parts = ['pel', 'umi', '@', 'pel', 'umi.xyz'];
-            const email = parts[0] + parts[1] + parts[2] + parts[3] + parts[4];
-            window.location.href = 'mailto:' + email;
-        }
-    </script>
 </body>
 </html>
