@@ -442,6 +442,17 @@
             return chars[Math.floor(Math.random() * chars.length)];
         }
 
+        function scrambleLoop(element, length, duration, callback) {
+            const startTime = Date.now();
+            const interval = setInterval(() => {
+                element.innerText = Array(length).fill().map(randomChar).join('');
+                if (Date.now() - startTime >= duration) {
+                    clearInterval(interval);
+                    callback();
+                }
+            }, 50);
+        }
+
         function animateText(element, finalText, index = 0) {
             if (index >= finalText.length) return;
 
@@ -453,15 +464,29 @@
 
             setTimeout(() => {
                 animateText(element, finalText, index + 1);
-            }, 80);
+            }, 100);
         }
 
-        // Initialize with random chars, then animate with stagger
-        elements.forEach((item, i) => {
+        // Initialize with random chars
+        elements.forEach((item) => {
             const element = document.getElementById(item.id);
             element.innerText = Array(item.final.length).fill().map(randomChar).join('');
-            setTimeout(() => animateText(element, item.final), 600 + (i * 300));
         });
+
+        // After initial delay, scramble loop then resolve
+        setTimeout(() => {
+            elements.forEach((item, i) => {
+                const element = document.getElementById(item.id);
+                
+                // Stagger each element
+                setTimeout(() => {
+                    // Scramble loop for 500ms, then resolve
+                    scrambleLoop(element, item.final.length, 500, () => {
+                        animateText(element, item.final);
+                    });
+                }, i * 400);
+            });
+        }, 1000);
     </script>
 </body>
 </html>
