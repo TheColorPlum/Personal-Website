@@ -322,7 +322,7 @@
 <body>
     <!-- HERO -->
     <header class="hero">
-        <h1 class="hero-name">PELUMI<br>ODIMAYO</h1>
+        <h1 class="hero-name"><span id="name-first">PELUMI</span><br><span id="name-last">ODIMAYO</span></h1>
         
         <div class="marquee-wrapper">
             <div class="marquee">
@@ -427,5 +427,41 @@
     <footer>
         <p class="footer-text">© 2026 Oluwapelumi Odimayo LLC</p>
     </footer>
+
+    <script>
+        // ============================================
+        // TEXT SCRAMBLE ANIMATION
+        // ============================================
+        const elements = [
+            { id: 'name-first', final: 'PELUMI' },
+            { id: 'name-last', final: 'ODIMAYO' }
+        ];
+
+        function randomChar() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+            return chars[Math.floor(Math.random() * chars.length)];
+        }
+
+        function animateText(element, finalText, index = 0) {
+            if (index >= finalText.length) return;
+
+            let newText = finalText.substring(0, index + 1);
+            for (let i = index + 1; i < finalText.length; i++) {
+                newText += randomChar();
+            }
+            element.innerText = newText;
+
+            setTimeout(() => {
+                animateText(element, finalText, index + 1);
+            }, 80);
+        }
+
+        // Initialize with random chars, then animate with stagger
+        elements.forEach((item, i) => {
+            const element = document.getElementById(item.id);
+            element.innerText = Array(item.final.length).fill().map(randomChar).join('');
+            setTimeout(() => animateText(element, item.final), 600 + (i * 300));
+        });
+    </script>
 </body>
 </html>
