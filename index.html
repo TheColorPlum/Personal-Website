@@ -4,505 +4,598 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pelumi Odimayo</title>
-    <meta name="description" content="Oluwapelumi Odimayo LLC — Builder, shipper, dog dad.">
+    <meta name="description" content="Builder. Shipper. Dog Dad. Former Big Tech PM turned builder, pursuing products that spark joy.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         :root {
-            --bg: #000000;
-            --surface: #0a0a0a;
-            --text-primary: #FFFFFF;
-            --text-secondary: #888888;
+            --bg-color: #ffffff;
+            --text-color: #111111;
+            --secondary-color: #888888;
+            --hairline: #e5e5e5;
             --accent: #8E4585;
             --accent-hover: #A855A8;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+            --pad: 24px;
         }
 
-        html {
-            scroll-behavior: smooth;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: none; 
         }
 
         body {
-            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-primary);
-            line-height: 1.5;
-            font-size: 16px;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* ============================================
-           HERO
-           ============================================ */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 80px 24px;
-            position: relative;
-        }
-
-        .hero-name {
-            font-size: clamp(48px, 12vw, 120px);
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            line-height: 0.9;
-            margin-bottom: 32px;
-        }
-
-        .hero-company {
-            font-size: 14px;
-            font-weight: 400;
-            color: var(--text-secondary);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-top: 48px;
-        }
-
-        /* Marquee */
-        .marquee-wrapper {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            height: 100vh;
             width: 100vw;
             overflow: hidden;
-            position: relative;
-            padding: 16px 0;
-        }
-
-        .marquee {
             display: flex;
-            animation: marquee 20s linear infinite;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .marquee-content {
-            display: flex;
-            align-items: center;
-            white-space: nowrap;
-            padding-right: 48px;
+        /* Custom Cursor */
+        #cursor-dot,
+        #cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+            mix-blend-mode: difference;
         }
 
-        .marquee-content span {
-            font-size: 24px;
+        #cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: white;
+        }
+
+        #cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid white;
+            transition: width 0.2s, height 0.2s;
+        }
+
+        /* Corner Index */
+        .corner-index {
+            position: fixed;
+            font-family: var(--font-main);
             font-weight: 500;
+            font-size: 2.5rem;
+            line-height: 1;
+            z-index: 1000;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .corner-index:hover {
             color: var(--accent);
-            padding: 0 24px;
         }
 
-        .marquee-content span::after {
-            content: '·';
-            padding-left: 48px;
-            color: var(--text-secondary);
+        .tl { top: var(--pad); left: var(--pad); }
+        .tr { top: var(--pad); right: var(--pad); }
+        .bl { bottom: var(--pad); left: var(--pad); }
+        .br { bottom: var(--pad); right: var(--pad); }
+
+        /* Canvas Zone */
+        #canvas-zone {
+            position: relative;
+            height: 70vh;
+            width: 100%;
+            overflow: hidden;
+            border-bottom: 1px solid var(--hairline);
         }
 
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        #ascii-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
         }
 
-        /* Scroll Indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        .scroll-indicator span {
-            font-size: 24px;
-            color: var(--text-secondary);
-            opacity: 0.6;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
-        }
-
-        /* ============================================
-           SECTIONS
-           ============================================ */
-        section {
-            padding: 120px 0;
-        }
-
-        .section-header {
-            margin-bottom: 64px;
-        }
-
-        .section-title {
-            font-size: clamp(36px, 8vw, 64px);
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            margin-bottom: 8px;
-        }
-
-        .section-subtitle {
-            font-size: 18px;
-            color: var(--text-secondary);
-        }
-
-        /* ============================================
-           APPS GRID
-           ============================================ */
-        .apps-grid {
+        /* Panel Zone */
+        #panel-zone {
+            height: 30vh;
+            width: 100%;
+            padding: var(--pad);
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 2fr 1.5fr 1fr;
+            gap: 40px;
+            align-content: start;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        h1, h2, h3 {
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        .panel-col {
+            display: flex;
+            flex-direction: column;
             gap: 24px;
         }
 
-        @media (max-width: 900px) {
-            .apps-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .meta-line {
+            display: flex;
+            gap: 12px;
+            color: var(--secondary-color);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
         }
 
-        @media (max-width: 600px) {
-            .apps-grid {
-                grid-template-columns: 1fr;
-            }
+        .bio-text {
+            max-width: 400px;
+            color: var(--text-color);
         }
 
-        .app-card {
-            background: var(--surface);
-            border-radius: 16px;
-            padding: 48px 32px;
-            text-align: center;
-            text-decoration: none;
-            color: inherit;
+        .link-list {
+            list-style: none;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 320px;
-            border: 1px solid transparent;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            gap: 8px;
         }
 
-        .app-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent);
-            box-shadow: 0 0 40px rgba(142, 69, 133, 0.3);
+        .link-list a {
+            text-decoration: none;
+            color: var(--text-color);
+            position: relative;
+            display: inline-block;
+            width: fit-content;
         }
 
-        .app-card-name {
-            font-size: clamp(32px, 5vw, 48px);
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1;
-            margin-bottom: 24px;
+        .link-list a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        .app-card-name span {
-            display: block;
+        .link-list a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
         }
 
-        .app-card-emoji {
-            font-size: 48px;
+        .link-list a:hover {
+            color: var(--accent);
+        }
+
+        .colophon {
+            margin-top: 24px;
+            color: var(--secondary-color);
+            font-size: 0.75rem;
+        }
+
+        .telemetry {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--secondary-color);
+            text-align: right;
             margin-top: auto;
         }
 
-        /* ============================================
-           VENTURES
-           ============================================ */
-        .ventures-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+        /* Hero Text */
+        .hero-text {
+            position: absolute;
+            bottom: 24px;
+            left: var(--pad);
+            pointer-events: auto;
         }
 
-        .venture-card {
-            background: var(--surface);
-            border-radius: 16px;
-            padding: 32px 40px;
+        .hero-headline {
+            font-size: 3rem;
+            font-weight: 400;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .hero-subline {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+        }
+
+        /* Navigation Overlay */
+        #nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            text-decoration: none;
-            color: inherit;
-            transition: background-color 0.3s ease;
-            gap: 24px;
-        }
-
-        .venture-card:hover {
-            background: #111111;
-        }
-
-        .venture-card:hover .venture-arrow {
-            transform: translateX(8px);
-        }
-
-        .venture-info {
-            flex: 1;
-        }
-
-        .venture-name {
-            font-size: 28px;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
-        }
-
-        .venture-description {
-            font-size: 16px;
-            color: var(--text-secondary);
-            max-width: 600px;
-        }
-
-        .venture-arrow {
-            font-size: 24px;
-            color: var(--accent);
-            transition: transform 0.3s ease;
-        }
-
-        @media (max-width: 600px) {
-            .venture-card {
-                flex-direction: column;
-                align-items: flex-start;
-                text-align: left;
-            }
-
-            .venture-arrow {
-                align-self: flex-end;
-            }
-        }
-
-        /* ============================================
-           CONTACT
-           ============================================ */
-        .contact {
-            text-align: center;
-            padding: 120px 24px;
-            background: var(--bg);
-        }
-
-        .contact-email {
-            font-size: clamp(28px, 5vw, 44px);
-            font-weight: 600;
-            margin-bottom: 32px;
-        }
-
-        .contact-email a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .contact-email a:hover {
-            color: var(--accent-hover);
-        }
-
-        .social-links {
-            display: flex;
             justify-content: center;
-            gap: 32px;
-            flex-wrap: wrap;
         }
 
-        .social-links a {
-            font-size: 16px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.2s ease;
+        #nav-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
         }
 
-        .social-links a:hover {
-            color: var(--text-primary);
-        }
-
-        /* ============================================
-           FOOTER
-           ============================================ */
-        footer {
-            padding: 48px 24px;
+        .nav-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
             text-align: center;
-            border-top: 1px solid #111;
         }
 
-        .footer-text {
-            font-size: 14px;
-            color: var(--text-secondary);
+        .nav-item {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            color: var(--accent);
+        }
+
+        /* Text Scramble */
+        .scramble-hover {
+            display: inline-block;
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            #panel-zone {
+                grid-template-columns: 1fr;
+                height: auto;
+                min-height: 30vh;
+                padding-bottom: 48px;
+            }
+            .corner-index {
+                font-size: 1.5rem;
+            }
+            .hero-headline {
+                font-size: 2rem;
+            }
+            body {
+                height: auto;
+                overflow: auto;
+            }
+            #canvas-zone {
+                height: 60vh;
+            }
+            .telemetry {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- HERO -->
-    <header class="hero">
-        <h1 class="hero-name"><span id="name-first">PELUMI</span><br><span id="name-last">ODIMAYO</span></h1>
-        
-        <div class="marquee-wrapper">
-            <div class="marquee">
-                <div class="marquee-content">
-                    <span>builder</span>
-                    <span>shipper</span>
-                    <span>dog dad</span>
-                    <span>builder</span>
-                    <span>shipper</span>
-                    <span>dog dad</span>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-outline"></div>
+
+    <!-- Corner Indices -->
+    <div class="corner-index tl trigger-nav">P</div>
+    <div class="corner-index tr trigger-nav">O</div>
+    <div class="corner-index bl">2</div>
+    <div class="corner-index br">6</div>
+
+    <!-- Navigation Overlay -->
+    <div id="nav-overlay">
+        <div class="nav-content">
+            <a href="#products" class="nav-item trigger-nav-close">Products</a>
+            <a href="#about" class="nav-item trigger-nav-close">About</a>
+            <div class="nav-item trigger-nav-close">Close</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Canvas Zone -->
+        <div id="canvas-zone">
+            <canvas id="ascii-canvas"></canvas>
+            <div class="hero-text">
+                <div class="hero-headline scramble-target">Builder. Shipper.<br>Dog Dad.</div>
+                <div class="hero-subline">Pursuing products that spark joy.</div>
+            </div>
+        </div>
+
+        <!-- Panel Zone -->
+        <div id="panel-zone">
+            <!-- Bio Column -->
+            <div class="panel-col">
+                <div>
+                    <div class="meta-line">
+                        <span>Pelumi Odimayo</span>
+                        <span id="timestamp">--:--:--</span>
+                    </div>
+                    <p class="bio-text scramble-body">
+                        Former Big Tech PM turned builder. Pursuing products that spark joy. Currently building Torium — small, sharp tools that do one thing perfectly for an agent-native world.
+                    </p>
                 </div>
-                <div class="marquee-content">
-                    <span>builder</span>
-                    <span>shipper</span>
-                    <span>dog dad</span>
-                    <span>builder</span>
-                    <span>shipper</span>
-                    <span>dog dad</span>
+            </div>
+
+            <!-- Links Column -->
+            <div class="panel-col">
+                <ul class="link-list">
+                    <li><a href="mailto:pelumi@pelumi.xyz">Email</a></li>
+                    <li><a href="https://github.com/TheColorPlum" target="_blank">GitHub</a></li>
+                    <li><a href="https://linkedin.com/in/oluwapelumi-odimayo/" target="_blank">LinkedIn</a></li>
+                </ul>
+                <div class="colophon">
+                    © 2026 Oluwapelumi Odimayo LLC
+                </div>
+            </div>
+
+            <!-- Telemetry Column -->
+            <div class="panel-col" style="text-align: right; justify-content: space-between;">
+                <div style="font-size: 0.75rem;">Chicago, IL</div>
+                <div class="telemetry">
+                    RENDER: <span id="render-ms">0.0</span>ms<br>
+                    X: <span id="mouse-x">0</span> Y: <span id="mouse-y">0</span>
                 </div>
             </div>
         </div>
-
-        <p class="hero-company">Oluwapelumi Odimayo LLC</p>
-        
-        <div class="scroll-indicator">
-            <span>↓</span>
-        </div>
-    </header>
-
-    <!-- APPS -->
-    <section id="apps">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">APPS</h2>
-                <p class="section-subtitle">Products I've shipped</p>
-            </div>
-
-            <div class="apps-grid">
-                <a href="https://lie-die.com" target="_blank" class="app-card">
-                    <div class="app-card-name">
-                        <span>LIE</span>
-                        <span>DIE</span>
-                    </div>
-                    <div class="app-card-emoji">🎲</div>
-                </a>
-
-                <a href="https://degen-golf.xyz" target="_blank" class="app-card">
-                    <div class="app-card-name">
-                        <span>DEGEN</span>
-                        <span>GOLF</span>
-                    </div>
-                    <div class="app-card-emoji">🏌️</div>
-                </a>
-
-                <a href="https://votive.me" target="_blank" class="app-card">
-                    <div class="app-card-name">
-                        <span>VOTIVE</span>
-                    </div>
-                    <div class="app-card-emoji">🕯️</div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- VENTURES -->
-    <section id="ventures">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">VENTURES</h2>
-                <p class="section-subtitle">Businesses I'm building</p>
-            </div>
-
-            <div class="ventures-list">
-                <a href="https://loomsupply.co" target="_blank" class="venture-card">
-                    <div class="venture-info">
-                        <h3 class="venture-name">Loom Supply</h3>
-                        <p class="venture-description">International raw materials sourcing focused on West Africa.</p>
-                    </div>
-                    <span class="venture-arrow">→</span>
-                </a>
-
-                <a href="https://abode-ai.com" target="_blank" class="venture-card">
-                    <div class="venture-info">
-                        <h3 class="venture-name">Abode</h3>
-                        <p class="venture-description">AI-powered HOA and home management. Routine maintenance with group discount rates from your neighbors.</p>
-                    </div>
-                    <span class="venture-arrow">→</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="contact">
-        <p class="contact-email">
-            <a href="mailto:pelumi@pelumi.xyz">pelumi@pelumi.xyz</a>
-        </p>
-        <div class="social-links">
-            <a href="https://linkedin.com/in/oluwapelumi-odimayo/" target="_blank">linkedin</a>
-            <a href="https://twitter.com/thecolorplum" target="_blank">twitter</a>
-            <a href="https://github.com/TheColorPlum" target="_blank">github</a>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <p class="footer-text">© 2026 Oluwapelumi Odimayo LLC</p>
-    </footer>
+    </main>
 
     <script>
-        // ============================================
-        // TEXT SCRAMBLE ANIMATION
-        // ============================================
-        const elements = [
-            { id: 'name-first', final: 'PELUMI' },
-            { id: 'name-last', final: 'ODIMAYO' }
-        ];
+        // Custom Cursor
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+        const mousePos = { x: 0, y: 0 };
+        const cursorLink = { x: 0, y: 0 };
 
-        function randomChar() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
-            return chars[Math.floor(Math.random() * chars.length)];
-        }
-
-        function scrambleLoop(element, length, duration, callback) {
-            const startTime = Date.now();
-            const interval = setInterval(() => {
-                element.innerText = Array(length).fill().map(randomChar).join('');
-                if (Date.now() - startTime >= duration) {
-                    clearInterval(interval);
-                    callback();
-                }
-            }, 50);
-        }
-
-        function animateText(element, finalText, index = 0) {
-            if (index >= finalText.length) return;
-
-            let newText = finalText.substring(0, index + 1);
-            for (let i = index + 1; i < finalText.length; i++) {
-                newText += randomChar();
-            }
-            element.innerText = newText;
-
-            setTimeout(() => {
-                animateText(element, finalText, index + 1);
-            }, 150);
-        }
-
-        // Start scrambling immediately on page load
-        elements.forEach((item, i) => {
-            const element = document.getElementById(item.id);
+        window.addEventListener('mousemove', (e) => {
+            mousePos.x = e.clientX;
+            mousePos.y = e.clientY;
             
-            // Stagger each element slightly
-            setTimeout(() => {
-                // Scramble loop for 1350ms, then resolve
-                scrambleLoop(element, item.final.length, 1350, () => {
-                    animateText(element, item.final);
-                });
-            }, i * 450);
+            document.getElementById('mouse-x').textContent = e.clientX;
+            document.getElementById('mouse-y').textContent = e.clientY;
+
+            cursorDot.style.left = `${e.clientX}px`;
+            cursorDot.style.top = `${e.clientY}px`;
         });
+
+        const loopCursor = () => {
+            const dx = mousePos.x - cursorLink.x;
+            const dy = mousePos.y - cursorLink.y;
+            cursorLink.x += dx * 0.15;
+            cursorLink.y += dy * 0.15;
+            
+            cursorOutline.style.left = `${cursorLink.x}px`;
+            cursorOutline.style.top = `${cursorLink.y}px`;
+            
+            requestAnimationFrame(loopCursor);
+        };
+        loopCursor();
+
+        // Timestamp
+        const updateTime = () => {
+            const now = new Date();
+            document.getElementById('timestamp').textContent = now.toLocaleTimeString('en-US', { hour12: false }) + " CST";
+        };
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Navigation Overlay
+        const navOverlay = document.getElementById('nav-overlay');
+        const triggers = document.querySelectorAll('.trigger-nav');
+        const closers = document.querySelectorAll('.trigger-nav-close');
+
+        triggers.forEach(el => el.addEventListener('click', () => {
+            navOverlay.classList.add('active');
+        }));
+        
+        closers.forEach(el => el.addEventListener('click', () => {
+            navOverlay.classList.remove('active');
+        }));
+        navOverlay.addEventListener('click', (e) => {
+            if(e.target === navOverlay) navOverlay.classList.remove('active');
+        });
+
+        // Text Scramble Class
+        class TextScramble {
+            constructor(el) {
+                this.el = el;
+                this.chars = '!<>-_\\/[]{}—=+*^?#________';
+                this.originalText = el.innerText;
+                this.frameRequest = null;
+                this.frame = 0;
+                this.queue = [];
+                
+                this.el.addEventListener('mouseenter', () => this.setText(this.originalText));
+                this.el.addEventListener('mouseleave', () => {
+                    setTimeout(() => this.setText(this.originalText), 200);
+                });
+            }
+
+            setText(newText) {
+                const oldText = this.el.innerText;
+                const length = Math.max(oldText.length, newText.length);
+                const promise = new Promise((resolve) => this.resolve = resolve);
+                
+                this.queue = [];
+                for (let i = 0; i < length; i++) {
+                    const from = oldText[i] || '';
+                    const to = newText[i] || '';
+                    const start = Math.floor(Math.random() * 40);
+                    const end = start + Math.floor(Math.random() * 40);
+                    this.queue.push({ from, to, start, end });
+                }
+                
+                cancelAnimationFrame(this.frameRequest);
+                this.frame = 0;
+                this.update();
+                return promise;
+            }
+
+            update() {
+                let output = '';
+                let complete = 0;
+                for (let i = 0, n = this.queue.length; i < n; i++) {
+                    let { from, to, start, end, char } = this.queue[i];
+                    if (this.frame >= end) {
+                        complete++;
+                        output += to;
+                    } else if (this.frame >= start) {
+                        if (!char || Math.random() < 0.28) {
+                            char = this.randomChar();
+                            this.queue[i].char = char;
+                        }
+                        output += `<span style="font-family: monospace; opacity: 0.5;">${char}</span>`;
+                    } else {
+                        output += from;
+                    }
+                }
+                this.el.innerHTML = output;
+                if (complete === this.queue.length) {
+                    this.resolve();
+                } else {
+                    this.frameRequest = requestAnimationFrame(this.update.bind(this));
+                    this.frame++;
+                }
+            }
+            randomChar() {
+                return this.chars[Math.floor(Math.random() * this.chars.length)];
+            }
+        }
+
+        // Initialize scramble effects
+        document.querySelectorAll('.scramble-target').forEach(el => new TextScramble(el));
+
+        // Bio hover effect
+        const bodyText = document.querySelector('.scramble-body');
+        bodyText.addEventListener('mouseenter', () => {
+            bodyText.style.fontFamily = 'var(--font-mono)';
+            bodyText.style.letterSpacing = '-0.5px';
+            bodyText.style.opacity = '0.7';
+        });
+        bodyText.addEventListener('mouseleave', () => {
+            bodyText.style.fontFamily = 'var(--font-main)';
+            bodyText.style.letterSpacing = 'normal';
+            bodyText.style.opacity = '1';
+        });
+
+        // ASCII Canvas
+        const canvas = document.getElementById('ascii-canvas');
+        const ctx = canvas.getContext('2d');
+        const renderMsEl = document.getElementById('render-ms');
+
+        let width, height;
+        const charSize = 12;
+        const cols = () => Math.ceil(width / charSize);
+        const rows = () => Math.ceil(height / charSize);
+
+        const densityChars = " .'`^,:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
+
+        function resize() {
+            width = canvas.parentElement.clientWidth;
+            height = canvas.parentElement.clientHeight;
+            
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            ctx.scale(dpr, dpr);
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        function simpleNoise(x, y, t) {
+            return Math.sin(x * 0.05 + t) * Math.cos(y * 0.05 + t) 
+                 + Math.sin(x * 0.01 - t) * Math.cos(y * 0.12) * 0.5;
+        }
+
+        let time = 0;
+        
+        function render() {
+            const start = performance.now();
+            ctx.clearRect(0, 0, width, height);
+            
+            ctx.font = `${charSize}px monospace`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            const colsCount = cols();
+            const rowsCount = rows();
+
+            for (let y = 0; y < rowsCount; y++) {
+                if (y < rowsCount * 0.4) continue;
+
+                for (let x = 0; x < colsCount; x++) {
+                    const posX = x * charSize;
+                    const posY = y * charSize;
+
+                    const dx = posX - mousePos.x;
+                    const dy = posY - (mousePos.y - canvas.getBoundingClientRect().top);
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    
+                    const normalizedY = (rowsCount - y) / rowsCount;
+                    const noiseVal = simpleNoise(x, y, time * 0.5);
+                    const mountainHeight = 0.3 + (Math.sin(x * 0.05 + time * 0.1) * 0.1) + (Math.cos(x * 0.2) * 0.05);
+
+                    let char = '';
+                    let alpha = 0;
+
+                    if (normalizedY < mountainHeight + (noiseVal * 0.1)) {
+                        const index = Math.floor(Math.abs(noiseVal) * densityChars.length);
+                        char = densityChars[index % densityChars.length];
+                        alpha = 1 - (normalizedY * 2);
+                    }
+
+                    if (dist < 150) {
+                        const lensStrength = 1 - (dist / 150);
+                        
+                        if (Math.random() > 0.5) {
+                            char = Math.random() > 0.5 ? '0' : '1';
+                            ctx.fillStyle = `rgba(142, 69, 133, ${lensStrength})`;
+                        } else {
+                            ctx.fillStyle = `rgba(100, 100, 100, ${alpha})`;
+                        }
+                        
+                        const shiftX = (dx / dist) * 10 * lensStrength;
+                        const shiftY = (dy / dist) * 10 * lensStrength;
+                        
+                        ctx.fillText(char, posX + (charSize/2) - shiftX, posY + (charSize/2) - shiftY);
+                    } else if (char) {
+                        ctx.fillStyle = `rgba(100, 100, 100, ${alpha})`;
+                        ctx.fillText(char, posX + (charSize/2), posY + (charSize/2));
+                    }
+                }
+            }
+
+            time += 0.01;
+            const duration = performance.now() - start;
+            renderMsEl.textContent = duration.toFixed(1);
+            
+            requestAnimationFrame(render);
+        }
+
+        render();
     </script>
+
 </body>
 </html>
