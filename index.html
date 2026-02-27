@@ -67,7 +67,7 @@
             transition: width 0.2s, height 0.2s;
         }
 
-        /* Corner Index */
+        /* Corner Index - decorative only */
         .corner-index {
             position: fixed;
             font-family: var(--font-main);
@@ -149,15 +149,23 @@
             gap: 8px;
         }
 
-        .link-list a {
+        .link-list a,
+        .link-list button {
             text-decoration: none;
             color: var(--text-color);
             position: relative;
             display: inline-block;
             width: fit-content;
+            background: none;
+            border: none;
+            font-family: inherit;
+            font-size: inherit;
+            cursor: none;
+            padding: 0;
         }
 
-        .link-list a::after {
+        .link-list a::after,
+        .link-list button::after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -170,12 +178,14 @@
             transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        .link-list a:hover::after {
+        .link-list a:hover::after,
+        .link-list button:hover::after {
             transform: scaleX(1);
             transform-origin: left;
         }
 
-        .link-list a:hover {
+        .link-list a:hover,
+        .link-list button:hover {
             color: var(--accent);
         }
 
@@ -215,8 +225,8 @@
             color: var(--secondary-color);
         }
 
-        /* Navigation Overlay */
-        #nav-overlay {
+        /* About Overlay */
+        #about-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -228,34 +238,99 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.4s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            overflow-y: auto;
         }
 
-        #nav-overlay.active {
+        #about-overlay.active {
             opacity: 1;
             pointer-events: auto;
         }
 
-        .nav-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .nav-item {
-            font-size: 3rem;
-            font-weight: 300;
-            color: #ccc;
-            cursor: pointer;
+        .about-close {
+            position: fixed;
+            top: var(--pad);
+            right: var(--pad);
+            font-size: 2rem;
+            color: var(--text-color);
+            background: none;
+            border: none;
+            cursor: none;
+            z-index: 2001;
             transition: color 0.3s;
-            text-decoration: none;
+            font-family: var(--font-main);
+            font-weight: 300;
         }
 
-        .nav-item:hover {
+        .about-close:hover {
             color: var(--accent);
+        }
+
+        .about-content {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 80px var(--pad) 80px;
+        }
+
+        .about-quote {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--secondary-color);
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .about-north-star {
+            font-size: 1.2rem;
+            line-height: 1.4;
+            margin-bottom: 48px;
+            color: var(--text-color);
+        }
+
+        .about-north-star strong {
+            color: var(--accent);
+        }
+
+        .about-section {
+            margin-bottom: 36px;
+        }
+
+        .about-section-header {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--secondary-color);
+            margin-bottom: 12px;
+        }
+
+        .about-section p,
+        .about-section li {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        .about-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .about-section li {
+            margin-bottom: 8px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .about-section li::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .about-section em {
+            color: var(--accent);
+            font-style: normal;
         }
 
         /* Text Scramble */
@@ -287,6 +362,9 @@
             .telemetry {
                 display: none;
             }
+            .about-content {
+                padding: 60px var(--pad) 60px;
+            }
         }
     </style>
 </head>
@@ -296,18 +374,73 @@
     <div id="cursor-dot"></div>
     <div id="cursor-outline"></div>
 
-    <!-- Corner Indices -->
-    <div class="corner-index tl trigger-nav">P</div>
-    <div class="corner-index tr trigger-nav">O</div>
+    <!-- Corner Indices (decorative) -->
+    <div class="corner-index tl">P</div>
+    <div class="corner-index tr">O</div>
     <div class="corner-index bl">2</div>
     <div class="corner-index br">6</div>
 
-    <!-- Navigation Overlay -->
-    <div id="nav-overlay">
-        <div class="nav-content">
-            <a href="#products" class="nav-item trigger-nav-close">Products</a>
-            <a href="#about" class="nav-item trigger-nav-close">About</a>
-            <div class="nav-item trigger-nav-close">Close</div>
+    <!-- About Overlay -->
+    <div id="about-overlay">
+        <button class="about-close" id="about-close">×</button>
+        <div class="about-content">
+            <p class="about-quote">"The real wealth is the time you can't buy …" — Jay-Z, "4:44"</p>
+            
+            <p class="about-north-star">
+                <strong>North Star:</strong> Build high-leverage, self-sustaining <em>systems</em> that maximize <em>freedom of time</em> while preserving <em>family presence</em>.
+            </p>
+
+            <div class="about-section">
+                <div class="about-section-header">Principles</div>
+                <ul>
+                    <li>Wealth is <em>instrumental</em>, not terminal.</li>
+                    <li>Leadership success is measured by <em>time sovereignty</em>, not scale or visibility.</li>
+                    <li>Any system that requires ongoing personal <em>availability</em> is a design failure.</li>
+                </ul>
+            </div>
+
+            <div class="about-section">
+                <div class="about-section-header">Where I Will Play</div>
+                <p style="margin-bottom: 12px;">I lead best in opt-in, ownership-based, coordination-heavy environments. High-fit areas:</p>
+                <ul>
+                    <li>Strategy formation and system architecture</li>
+                    <li>Early-mid stage ventures</li>
+                    <li>Small to medium teams <em>aligned by competence</em></li>
+                    <li>Networked coordination where <em>authority is earned, not positional</em></li>
+                </ul>
+            </div>
+
+            <div class="about-section">
+                <div class="about-section-header">Where I Won't Play</div>
+                <p style="margin-bottom: 12px;">I do not lead where participation is coerced or meaning must be continuously manufactured. Low-fit areas:</p>
+                <ul>
+                    <li>Large bureaucracies</li>
+                    <li>Culture-first change management</li>
+                    <li>Roles requiring sustained narrative performance</li>
+                    <li>Environments where optics outweigh outcomes</li>
+                </ul>
+            </div>
+
+            <div class="about-section">
+                <div class="about-section-header">Non-Negotiables</div>
+                <p style="margin-bottom: 12px;">Any outcome violating these nullifies the win:</p>
+                <ul>
+                    <li>No success purchased at the cost of core relationships.</li>
+                    <li>No deception, exploitation, or extraction as a growth strategy.</li>
+                    <li>No leadership role that requires sustained dishonesty.</li>
+                    <li>No physical harm or knowing destruction of another's livelihood.</li>
+                </ul>
+            </div>
+
+            <div class="about-section">
+                <div class="about-section-header">Explicit Tensions</div>
+                <p style="margin-bottom: 12px;">These are resolved structurally, not emotionally:</p>
+                <ul>
+                    <li><em>Freedom vs Intensity</em> — Intensity is allowed only in bounded phases with pre-designed exits.</li>
+                    <li><em>Credibility vs Speed</em> — Speed is subordinate to reversibility when decisions are irreversible.</li>
+                    <li><em>Wealth vs Relationships</em> — Relationships are constraints, not tradeable variables.</li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -346,6 +479,7 @@
                     <li><a href="mailto:pelumi@pelumi.xyz">Email</a></li>
                     <li><a href="https://github.com/TheColorPlum" target="_blank">GitHub</a></li>
                     <li><a href="https://linkedin.com/in/oluwapelumi-odimayo/" target="_blank">LinkedIn</a></li>
+                    <li><button id="about-trigger">About</button></li>
                 </ul>
                 <div class="colophon">
                     Typeface: Inter & SF Mono.
@@ -402,20 +536,30 @@
         setInterval(updateTime, 1000);
         updateTime();
 
-        // Navigation Overlay
-        const navOverlay = document.getElementById('nav-overlay');
-        const triggers = document.querySelectorAll('.trigger-nav');
-        const closers = document.querySelectorAll('.trigger-nav-close');
+        // About Overlay
+        const aboutOverlay = document.getElementById('about-overlay');
+        const aboutTrigger = document.getElementById('about-trigger');
+        const aboutClose = document.getElementById('about-close');
 
-        triggers.forEach(el => el.addEventListener('click', () => {
-            navOverlay.classList.add('active');
-        }));
-        
-        closers.forEach(el => el.addEventListener('click', () => {
-            navOverlay.classList.remove('active');
-        }));
-        navOverlay.addEventListener('click', (e) => {
-            if(e.target === navOverlay) navOverlay.classList.remove('active');
+        aboutTrigger.addEventListener('click', () => {
+            aboutOverlay.classList.add('active');
+        });
+
+        aboutClose.addEventListener('click', () => {
+            aboutOverlay.classList.remove('active');
+        });
+
+        aboutOverlay.addEventListener('click', (e) => {
+            if (e.target === aboutOverlay) {
+                aboutOverlay.classList.remove('active');
+            }
+        });
+
+        // ESC key to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && aboutOverlay.classList.contains('active')) {
+                aboutOverlay.classList.remove('active');
+            }
         });
 
         // Text Scramble Class
