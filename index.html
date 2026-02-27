@@ -333,6 +333,116 @@
             font-style: normal;
         }
 
+        /* Projects Overlay */
+        #projects-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            overflow-y: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #projects-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .projects-close {
+            position: fixed;
+            top: var(--pad);
+            right: var(--pad);
+            font-size: 2rem;
+            color: var(--text-color);
+            background: none;
+            border: none;
+            cursor: none;
+            z-index: 2001;
+            transition: color 0.3s;
+            font-family: var(--font-main);
+            font-weight: 300;
+        }
+
+        .projects-close:hover {
+            color: var(--accent);
+        }
+
+        .projects-content {
+            max-width: 600px;
+            width: 100%;
+            padding: 0 var(--pad);
+        }
+
+        .projects-header {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--secondary-color);
+            margin-bottom: 24px;
+        }
+
+        .project-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-top: 1px solid var(--hairline);
+            gap: 16px;
+        }
+
+        .project-row:last-child {
+            border-bottom: 1px solid var(--hairline);
+        }
+
+        .project-name {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-color);
+            white-space: nowrap;
+            min-width: 100px;
+        }
+
+        .project-desc {
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+            flex: 1;
+            text-align: center;
+        }
+
+        .project-link {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-color);
+            text-decoration: none;
+            white-space: nowrap;
+            transition: color 0.3s;
+        }
+
+        .project-link:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .project-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .project-desc {
+                text-align: left;
+            }
+        }
+
         /* Text Scramble */
         .scramble-hover {
             display: inline-block;
@@ -379,6 +489,32 @@
     <div class="corner-index tr">O</div>
     <div class="corner-index bl">2</div>
     <div class="corner-index br">6</div>
+
+    <!-- Projects Overlay -->
+    <div id="projects-overlay">
+        <button class="projects-close" id="projects-close">×</button>
+        <div class="projects-content">
+            <div class="projects-header">Projects</div>
+            
+            <div class="project-row">
+                <span class="project-name">Torium</span>
+                <span class="project-desc">Small, sharp tools for an agent-native world.</span>
+                <a href="https://torium.app" target="_blank" class="project-link">torium.app →</a>
+            </div>
+            
+            <div class="project-row">
+                <span class="project-name">Votive</span>
+                <span class="project-desc">Daily prayer app for Catholics finding their way back. 10 minutes a day.</span>
+                <a href="https://votive.me" target="_blank" class="project-link">votive.me →</a>
+            </div>
+            
+            <div class="project-row">
+                <span class="project-name">Loom Supply</span>
+                <span class="project-desc">Nigeria's finest raw materials in the hands of those who shape what lasts.</span>
+                <a href="https://loomsupply.co" target="_blank" class="project-link">loomsupply.co →</a>
+            </div>
+        </div>
+    </div>
 
     <!-- About Overlay -->
     <div id="about-overlay">
@@ -476,10 +612,11 @@
             <!-- Links Column -->
             <div class="panel-col">
                 <ul class="link-list">
+                    <li><button id="projects-trigger">Projects</button></li>
+                    <li><button id="about-trigger">About</button></li>
                     <li><a href="mailto:pelumi@pelumi.xyz">Email</a></li>
                     <li><a href="https://github.com/TheColorPlum" target="_blank">GitHub</a></li>
                     <li><a href="https://linkedin.com/in/oluwapelumi-odimayo/" target="_blank">LinkedIn</a></li>
-                    <li><button id="about-trigger">About</button></li>
                 </ul>
                 <div class="colophon">
                     Typeface: Inter & SF Mono.
@@ -536,6 +673,25 @@
         setInterval(updateTime, 1000);
         updateTime();
 
+        // Projects Overlay
+        const projectsOverlay = document.getElementById('projects-overlay');
+        const projectsTrigger = document.getElementById('projects-trigger');
+        const projectsClose = document.getElementById('projects-close');
+
+        projectsTrigger.addEventListener('click', () => {
+            projectsOverlay.classList.add('active');
+        });
+
+        projectsClose.addEventListener('click', () => {
+            projectsOverlay.classList.remove('active');
+        });
+
+        projectsOverlay.addEventListener('click', (e) => {
+            if (e.target === projectsOverlay) {
+                projectsOverlay.classList.remove('active');
+            }
+        });
+
         // About Overlay
         const aboutOverlay = document.getElementById('about-overlay');
         const aboutTrigger = document.getElementById('about-trigger');
@@ -555,9 +711,10 @@
             }
         });
 
-        // ESC key to close
+        // ESC key to close overlays
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && aboutOverlay.classList.contains('active')) {
+            if (e.key === 'Escape') {
+                projectsOverlay.classList.remove('active');
                 aboutOverlay.classList.remove('active');
             }
         });
